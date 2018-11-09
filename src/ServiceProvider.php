@@ -2,6 +2,7 @@
 
 namespace Christhompsontldr\CollectiveInput;
 
+use Blade;
 use Form;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
