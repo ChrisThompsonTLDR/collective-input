@@ -57,17 +57,53 @@ if (!isset($options['id'])) {
     $options['id'] = $name;
 }
 
-$formGroupClass = '';
+
+$formGroupClass = 'form-group';
+$formGroup = true;
+
 if (isset($options['form-group'])) {
     if (isset($options['form-group']['class'])) {
-        $formGroupClass = ' ' . $options['form-group']['class'];
+        $formGroupClass = trim($options['form-group']['class']);
+    }
+
+    if ($options['form-group'] == false) {
+        $formGroup = false;
     }
 
     unset($options['form-group']);
 }
 
+
+$formCheckClass = 'form-check';
+$formCheck = true;
+
+if (isset($options['form-check'])) {
+    if (isset($options['form-check']['class'])) {
+        $formCheckClass = trim($options['form-check']['class']);
+    }
+
+    if ($options['form-check'] == false) {
+        $formCheck = false;
+    }
+
+    unset($options['form-check']);
+}
+
+
 if (in_array($type, ['checkbox', 'radio'])) {
-    $options['id'] = str_replace(['[', ']'], '', $options['id']) . $options['value'];
+    //  if these fields don't have a value, make it true
+    if (!isset($options['value'])) {
+        $options['value'] = true;
+    }
+
+    //  if checked is not set, set it if needed
+    if (!isset($options['checked'])) {
+        if (optional(Form::getModel())->{$name} == $options['value']) {
+            $options['checked'] = true;
+        }
+    }
+
+    $options['id'] = str_slug(str_replace(['[', ']'], '', $options['id']) . $label);
 }
 
 $value = null;
@@ -79,30 +115,33 @@ if (isset($options['value'])) {
 //  switch field type to textarea for type=html
 switch ($type) {
     case 'html':
-        $fieldType = 'html';
+        $fieldType = 'textarea';
+        $options['required'] = false;
         break;
     case 'datetime':
         $fieldType = 'text';
         $options['class'] .= ' datetime';
         break;
+    case 'checkbox':
+    case 'radio':
+        $options['checked'] = isset($options['checked']) ? $options['checked'] : false;
     default:
         $fieldType = $type;
 }
 ?>
-<div class="form-group{{ $formGroupClass }}">
+@if ($formGroup)<div class="{{ $formGroupClass }}">@endif
     @if ($label !== false && !in_array($type, ['checkbox', 'radio']))
     {{ Form::label($name, $label) }}
     @endif
-
 
     @if ($fieldType == 'select')
     {{ Form::{$fieldType}($name, $selectOptions, $selected, $options) }}
 
     @elseif (in_array($type, ['checkbox', 'radio']))
-    <div class="form-check">
-        {{ Form::{$fieldType}($name, $options['value'], false, $options) }}
-        {{ Form::label($options['id'], $label, ['class' => 'form-check-label']) }}
-    </div>
+        @if ($formCheck)<div class="{{ $formCheckClass }}">@endif
+        {{ Form::{$fieldType}($name, $options['value'], $options['checked'], $options) }}
+        {{ Form::label($options['id'], $label, ['class' => 'form-check-label'], false) }}
+        @if ($formCheck)</div>@endif
 
     @elseif ($fieldType == 'address')
     @php
@@ -111,8 +150,7 @@ switch ($type) {
     @endphp
     {{ Form::text('address', $value, $tmpOptions) }}
     {{ Form::text('address_2', $value, $options) }}
-    </div>
-    <div class="form-group{{ $formGroupClass }}">
+    @if ($formGroup)</div><div class="{{ $formGroupClass }}">@endif
 
     <div class="row">
         <div class="col">
@@ -151,12 +189,12 @@ switch ($type) {
     @endif
 
     @if ($after)
-    <small class="form-text text-muted">{{ $after }}</small>
+        {!! $after !!}
     @endif
 
 
     {!! $errors->first($dotName, '<small class="invalid-feedback">:message</small>') !!}
-</div>
+@if ($formGroup)</div>@endif
 
 @if ($type == 'html')
     @pushonce('after-styles:summernote')
@@ -165,6 +203,7 @@ switch ($type) {
 
     @pushonce('after-scripts:summernote')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.min.js" integrity="sha256-o5hEO6rl7yksLT3gTjQcYYDt03Lx9VwNu81FrO82Ofw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.18.0/jquery.validate.min.js" integrity="sha256-uzabfEBBxmdH/zDxYYF2N7MyYYGkkerVpVwRixL92xM=" crossorigin="anonymous"></script>
     @endpushonce
 
     @push('after-scripts')
