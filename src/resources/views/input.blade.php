@@ -140,7 +140,7 @@ switch ($type) {
     @elseif (in_array($type, ['checkbox', 'radio']))
         @if ($formCheck)<div class="{{ $formCheckClass }}">@endif
         {{ Form::{$fieldType}($name, $options['value'], $options['checked'], $options) }}
-        @if ($label !== false && !in_array($type, ['checkbox', 'radio']))
+        @if ($label !== false)
             {{ Form::label($options['id'], $label, ['class' => 'form-check-label'], false) }}
         @endif
         @if ($formCheck)</div>@endif
