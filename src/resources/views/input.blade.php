@@ -128,6 +128,10 @@ switch ($type) {
     default:
         $fieldType = $type;
 }
+
+if (isset($options['class'])) {
+    $options['class'] = trim($options['class']);
+}
 ?>
 @if ($formGroup)<div class="{{ $formGroupClass }}">@endif
     @if ($label !== false && !in_array($type, ['checkbox', 'radio']))
