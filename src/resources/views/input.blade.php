@@ -102,9 +102,9 @@ if (in_array($type, ['checkbox', 'radio'])) {
             $options['checked'] = true;
         }
     }
-
-    $options['id'] = str_slug(str_replace(['[', ']'], '', $options['id']) . $label);
 }
+
+$options['id'] = str_slug(str_replace(['[', ']'], '', $options['id']) . $label);
 
 $value = null;
 if (isset($options['value'])) {
@@ -215,7 +215,7 @@ if (isset($options['class'])) {
     @push('after-scripts')
     <script>
     $(function() {
-        $('#{{ $name }}').summernote({
+        $('#{{ $options['id'] }}').summernote({
             height: {{ isset($options['height']) ? $options['height'] : 400 }},
             toolbar: [
                 // [groupName, [list of button]]
