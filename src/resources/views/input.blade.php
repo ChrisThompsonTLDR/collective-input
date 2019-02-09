@@ -98,7 +98,7 @@ if (in_array($type, ['checkbox', 'radio'])) {
 
     //  if checked is not set, set it if needed
     if (!isset($options['checked'])) {
-        if (optional(Form::getModel())->{$name} == $options['value']) {
+        if (method_exists('Form', 'getModel') && Form::getModel()->{$name} == $options['value']) {
             $options['checked'] = true;
         }
     }
