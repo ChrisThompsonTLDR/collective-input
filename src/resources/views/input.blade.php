@@ -48,7 +48,7 @@ $label = false;
 if (isset($options['label']) && $options['label'] !== false) {
     $label = $options['label'];
 } elseif (!isset($options['label'])) {
-    $label = ucwords(str_replace('_', ' ', $name));
+    $label = ucwords(str_replace(['_id', '_'], ['', ' '], $name));
 }
 unset($options['label']);
 
