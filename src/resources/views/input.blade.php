@@ -17,8 +17,9 @@ if (!isset($options['class'])) {
         $options['class'] = 'form-control';
     }
 }
-$options['class'] .= (($errors->has($dotName)) ? ' is-invalid' : '');
-
+if(isset($errors)) {
+    $options['class'] .= (($errors->has($dotName)) ? ' is-invalid' : '');
+}
 
 if (in_array('required', $options)) {
     $options['required'] = true;
@@ -198,8 +199,9 @@ if (isset($options['class'])) {
         {!! $after !!}
     @endif
 
-
-    {!! $errors->first($dotName, '<small class="invalid-feedback">:message</small>') !!}
+    @if(isset($errors))
+        {!! $errors->first($dotName, '<small class="invalid-feedback">:message</small>') !!}
+    @endif
 @if ($formGroup)</div>@endif
 
 @if ($type == 'html')
