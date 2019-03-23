@@ -176,7 +176,7 @@ if (isset($options['class'])) {
             @if ($label !== false)
             {{ Form::label('zip', 'Zip') }}
             @endif
-            {{ Form::text('Zip', $value, $options) }}
+            {{ Form::text('zip', $value, $options) }}
         </div>
     </div>
 
