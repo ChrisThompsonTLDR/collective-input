@@ -43,6 +43,11 @@ if (isset($options['after'])) {
     $after = $options['after'];
     unset($options['after']);
 }
+$states = false;
+if (isset($options['states'])) {
+    $states = $options['states'];
+    unset($options['states']);
+}
 
 
 $label = false;
@@ -170,7 +175,11 @@ if (isset($options['class'])) {
             @if ($label !== false)
             {{ Form::label('state', 'State') }}
             @endif
+            @if ($states)
+            {{ Form::select('state', $states, $value, array_merge(['placeholder' => ''], $options)) }}
+            @else
             {{ Form::text('state', $value, $options) }}
+            @endif
         </div>
         <div class="col">
             @if ($label !== false)
