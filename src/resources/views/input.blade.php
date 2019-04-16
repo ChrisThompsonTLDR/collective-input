@@ -160,8 +160,8 @@ if (isset($options['class'])) {
     $tmpOptions = $options;
     $tmpOptions['class'] .= ' mb-1';
     @endphp
-    {{ Form::text('address', $value, $tmpOptions) }}
-    {{ Form::text('address_2', $value, $options) }}
+    {{ Form::text('address', optional($value)->address, $tmpOptions) }}
+    {{ Form::text('address_2', optional($value)->address_2, $options) }}
     @if ($formGroup)</div><div class="{{ $formGroupClass }}">@endif
 
     <div class="row">
@@ -169,23 +169,23 @@ if (isset($options['class'])) {
             @if ($label !== false)
             {{ Form::label('city', 'City') }}
             @endif
-            {{ Form::text('city', $value, $options) }}
+            {{ Form::text('city', optional($value)->city, $options) }}
         </div>
         <div class="col">
             @if ($label !== false)
             {{ Form::label('state', 'State') }}
             @endif
             @if ($states)
-            {{ Form::select('state', $states, $value, array_merge(['placeholder' => ''], $options)) }}
+            {{ Form::select('state', $states, optional($value)->state, array_merge(['placeholder' => ''], $options)) }}
             @else
-            {{ Form::text('state', $value, $options) }}
+            {{ Form::text('state', optional($value)->state, $options) }}
             @endif
         </div>
         <div class="col">
             @if ($label !== false)
             {{ Form::label('zip', 'Zip') }}
             @endif
-            {{ Form::text('zip', $value, $options) }}
+            {{ Form::text('zip', optional($value)->zip, $options) }}
         </div>
     </div>
 
