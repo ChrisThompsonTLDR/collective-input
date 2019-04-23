@@ -164,14 +164,14 @@ if (isset($options['class'])) {
     {{ Form::text('address_2', optional($value)->address_2, $options) }}
     @if ($formGroup)</div><div class="{{ $formGroupClass }}">@endif
 
-    <div class="row">
-        <div class="col">
+    <div class="form-row">
+        <div class="col-sm">
             @if ($label !== false)
             {{ Form::label('city', 'City') }}
             @endif
             {{ Form::text('city', optional($value)->city, $options) }}
         </div>
-        <div class="col">
+        <div class="col-sm">
             @if ($label !== false)
             {{ Form::label('state', 'State') }}
             @endif
@@ -181,7 +181,7 @@ if (isset($options['class'])) {
             {{ Form::text('state', optional($value)->state, $options) }}
             @endif
         </div>
-        <div class="col">
+        <div class="col-sm">
             @if ($label !== false)
             {{ Form::label('zip', 'Zip') }}
             @endif
