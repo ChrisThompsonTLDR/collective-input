@@ -8,7 +8,7 @@
             "homepage": "https://christhompsontldr.com"
         }
     ],
-    "keywords": ["laravel" , "collective", "forms", "Bootstrap"],
+    "keywords": ["laravel" , "collective", "forms", "bootstrap"],
     "support": {
         "issues": "https://github.com/christhompsontldr/collective-input/issues",
         "source": "https://github.com/christhompsontldr/collective-input"
