@@ -112,9 +112,9 @@ if (in_array($type, ['checkbox', 'radio'])) {
 
 $options['id'] = str_slug(str_replace(['[', ']'], '', $options['id']) . $label);
 
-$value = null;
+$value = old($name, optional(Form::getModel())->{$name});
 if (isset($options['value'])) {
-    $value = old($name, $options['value']);
+    $value = $options['value'];
 }
 
 
@@ -191,7 +191,7 @@ if (isset($options['class'])) {
 
     @elseif($type == 'datetime')
     <div class="input-group date" id="{{ $options['id'] }}" data-target-input="nearest">
-        <input type="text" name="{{ $name }}" class="{{ $options['class'] }}" data-target="#{{ $options['id'] }}"/>
+        <input type="text" name="{{ $name }}" class="{{ $options['class'] }}" data-target="#{{ $options['id'] }}">
         <div class="input-group-append" data-target="#{{ $options['id'] }}" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fal fa-calendar-alt"></i></div>
         </div>
@@ -256,7 +256,8 @@ if (isset($options['class'])) {
                     date: "fal fa-calendar-alt",
                     up: "fal fa-arrow-up",
                     down: "fal fa-arrow-down"
-                }
+                },
+                defaultDate: "{{ $value }}",
             });
         });
     </script>
