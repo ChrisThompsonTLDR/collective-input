@@ -112,7 +112,7 @@ if (in_array($type, ['checkbox', 'radio'])) {
 
 $options['id'] = str_slug(str_replace(['[', ']'], '', $options['id']) . $label);
 
-$value = old($name, optional(Form::getModel())->{$name});
+$value = old($name, ((isset(Form::getModel()->{$name})) ? Form::getModel()->{$name} : null));
 if (isset($options['value'])) {
     $value = $options['value'];
 }
@@ -160,8 +160,8 @@ if (isset($options['class'])) {
     $tmpOptions = $options;
     $tmpOptions['class'] .= ' mb-1';
     @endphp
-    {{ Form::text('address', optional($value)->address, $tmpOptions) }}
-    {{ Form::text('address_2', optional($value)->address_2, $options) }}
+    {{ Form::text('address', ((isset($value->address)) ? $value->address : null), $tmpOptions) }}
+    {{ Form::text('address_2', ((isset($value->address_2)) ? $value->address_2 : null), $options) }}
     @if ($formGroup)</div><div class="{{ $formGroupClass }}">@endif
 
     <div class="form-row">
@@ -169,23 +169,23 @@ if (isset($options['class'])) {
             @if ($label !== false)
             {{ Form::label('city', 'City') }}
             @endif
-            {{ Form::text('city', optional($value)->city, $options) }}
+            {{ Form::text('city', ((isset($value->city)) ? $value->city : null), $options) }}
         </div>
         <div class="col-sm">
             @if ($label !== false)
             {{ Form::label('state', 'State') }}
             @endif
             @if ($states)
-            {{ Form::select('state', $states, optional($value)->state, array_merge(['placeholder' => ''], $options)) }}
+            {{ Form::select('state', $states, ((isset($value->state)) ? $value->state : null), array_merge(['placeholder' => ''], $options)) }}
             @else
-            {{ Form::text('state', optional($value)->state, $options) }}
+            {{ Form::text('state', ((isset($value->state)) ? $value->state : null), $options) }}
             @endif
         </div>
         <div class="col-sm">
             @if ($label !== false)
             {{ Form::label('zip', 'Zip') }}
             @endif
-            {{ Form::text('zip', optional($value)->zip, $options) }}
+            {{ Form::text('zip', ((isset($value->zip)) ? $value->zip : null), $options) }}
         </div>
     </div>
 
