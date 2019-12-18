@@ -21,7 +21,7 @@ if(isset($errors)) {
     $options['class'] .= (($errors->has($dotName)) ? ' is-invalid' : '');
 }
 
-if (in_array('required', $options)) {
+if (in_array('required', $options, true)) {
     $options['required'] = true;
 } else {
     $options['required'] = false;
