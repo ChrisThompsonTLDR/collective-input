@@ -21,12 +21,17 @@ if(isset($errors)) {
     $options['class'] .= (($errors->has($dotName)) ? ' is-invalid' : '');
 }
 
+// check if 'required' is a value, convert it to a key => true
 if (in_array('required', $options, true)) {
     $options['required'] = true;
 } else {
     $options['required'] = false;
 }
 
+//  unset checked if not true
+if (isset($options['checked']) && $options['checked'] != true) {
+    unset($options['checked']);
+}
 
 $selected = null;
 if (isset($options['selected'])) {
