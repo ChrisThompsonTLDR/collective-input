@@ -1,4 +1,4 @@
-This package extends [Laravel Collective](https://github.com/LaravelCollective/html) and adds a new method to help build a [Bootstrap 4 input](https://getbootstrap.com/docs/4.3/components/forms/).
+This package extends [Laravel Collective](https://github.com/LaravelCollective/html) and adds a new method to help build a [Bootstrap 4 inputs](https://getbootstrap.com/docs/4.3/components/forms/).
 
 ```
 {{ Form::bs('name', 'text']) }}
@@ -12,6 +12,10 @@ becomes
     <input type="text" class="form-control" id="name">
 </div>
 ```
+
+## Installation
+
+`composer require christhompsontldr/collective-input`
 
 ## Usage
 
