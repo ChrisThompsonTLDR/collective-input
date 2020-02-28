@@ -115,7 +115,7 @@ if (in_array($type, ['checkbox', 'radio'])) {
     }
 }
 
-$options['id'] = str_slug(str_replace(['[', ']'], '', $options['id']) . $label);
+$options['id'] = Str::slug(str_replace(['[', ']'], '', $options['id']) . $label);
 
 $value = old($name, optional(Form::getModel())->{$name});
 if (isset($options['value'])) {
