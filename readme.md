@@ -49,8 +49,10 @@ The form-group wrapper div can be removed with
 
 This package has an HTML textarea that will build a [Summernote](https://summernote.org/) WYSIWYG editor.
 
+`height` is the attribute used to set the height of this textarea.
+
 ```
-{{ Form::bs('description', 'html') }}
+{{ Form::bs('description', 'html', ['height' => 200]) }}
 ```
 
 ### Datetime input
