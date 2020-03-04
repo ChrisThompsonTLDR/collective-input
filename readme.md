@@ -19,6 +19,10 @@ becomes
 
 ## Usage
 
+### Assets
+
+This package requires that you add `@stack('after-styles')` to your `<head>` and `@stack('after-scripts')` to the end of your `<body>`.
+
 ### Boolean Attributes
 
 All HTML boolean attributes are supported.
