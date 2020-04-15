@@ -1,6 +1,8 @@
 <?php
 $dotName = str_replace(['[', ']'], ['.', ''], $name);
 
+$name = str_replace('.', '[', $name) . ((Str::contains($name, '.')) ? ']' : '');
+
 if (!isset($type)) {
     $type = 'text';
 }
