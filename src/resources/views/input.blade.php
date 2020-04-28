@@ -54,6 +54,76 @@ $states = false;
 if (isset($options['states'])) {
     $states = $options['states'];
     unset($options['states']);
+} else {
+    $states = [
+        'AL' => 'Alabama',
+        'AK' => 'Alaska',
+        'AZ' => 'Arizona',
+        'AR' => 'Arkansas',
+        'CA' => 'California',
+        'CO' => 'Colorado',
+        'CT' => 'Connecticut',
+        'DE' => 'Delaware',
+        'DC' => 'District Of Columbia',
+        'FL' => 'Florida',
+        'GA' => 'Georgia',
+        'HI' => 'Hawaii',
+        'ID' => 'Idaho',
+        'IL' => 'Illinois',
+        'IN' => 'Indiana',
+        'IA' => 'Iowa',
+        'KS' => 'Kansas',
+        'KY' => 'Kentucky',
+        'LA' => 'Louisiana',
+        'ME' => 'Maine',
+        'MD' => 'Maryland',
+        'MA' => 'Massachusetts',
+        'MI' => 'Michigan',
+        'MN' => 'Minnesota',
+        'MS' => 'Mississippi',
+        'MO' => 'Missouri',
+        'MT' => 'Montana',
+        'NE' => 'Nebraska',
+        'NV' => 'Nevada',
+        'NH' => 'New Hampshire',
+        'NJ' => 'New Jersey',
+        'NM' => 'New Mexico',
+        'NY' => 'New York',
+        'NC' => 'North Carolina',
+        'ND' => 'North Dakota',
+        'OH' => 'Ohio',
+        'OK' => 'Oklahoma',
+        'OR' => 'Oregon',
+        'PA' => 'Pennsylvania',
+        'RI' => 'Rhode Island',
+        'SC' => 'South Carolina',
+        'SD' => 'South Dakota',
+        'TN' => 'Tennessee',
+        'TX' => 'Texas',
+        'UT' => 'Utah',
+        'VT' => 'Vermont',
+        'VA' => 'Virginia',
+        'WA' => 'Washington',
+        'WV' => 'West Virginia',
+        'WI' => 'Wisconsin',
+        'WY' => 'Wyoming',
+        // Commonwealth/Territory and Military
+        'AS' => 'American Samoa',
+        'DC' => 'District of Columbia',
+        'FM' => 'Federated States of Micronesia',
+        'GU' => 'Guam',
+        'MH' => 'Marshall Islands',
+        'MP' => 'Northern Mariana Islands',
+        'PW' => 'Palau',
+        'PR' => 'Puerto Rico',
+        'VI' => 'Virgin Islands',
+        'AE' => 'Armed Forces Africa',
+        'AA' => 'Armed Forces Americas',
+        'AE' => 'Armed Forces Canada',
+        'AE' => 'Armed Forces Europe',
+        'AE' => 'Armed Forces Middle East',
+        'AP' => 'Armed Forces Pacific',
+    ];
 }
 
 
@@ -68,6 +138,8 @@ unset($options['label']);
 
 if (!isset($options['id'])) {
     $options['id'] = $name;
+
+    $options['id'] = Str::slug(str_replace(['[', ']'], ['_', ''], $options['id']));
 }
 
 
@@ -117,8 +189,6 @@ if (in_array($type, ['checkbox', 'radio'])) {
     }
 }
 
-$options['id'] = Str::slug(str_replace(['[', ']'], '', $options['id']) . $label);
-
 $value = old($name, optional(Form::getModel())->{$name});
 if (isset($options['value'])) {
     $value = $options['value'];
@@ -147,7 +217,7 @@ if (isset($options['class'])) {
 }
 ?>
 @if ($formGroup)<div class="{{ $formGroupClass }}">@endif
-    @if ($label !== false && !in_array($type, ['checkbox', 'radio']))
+    @if ($label !== false && !in_array($type, ['checkbox', 'radio', 'address']))
     {{ Form::label($name, $label) }}
     @endif
 
@@ -167,32 +237,35 @@ if (isset($options['class'])) {
     $tmpOptions = $options;
     $tmpOptions['class'] .= ' mb-1';
     @endphp
-    {{ Form::text('address', optional($value)->address, $tmpOptions) }}
-    {{ Form::text('address_2', optional($value)->address_2, $options) }}
+    @if ($label !== false)
+    <label for="{{ $options['id'] . '_' . 'address' }}">Address</label>
+    @endif
+    {{ Form::text('address', optional($value)->address, array_merge($tmpOptions, ['id' => $options['id'] . '_' . 'address'])) }}
+    {{ Form::text('address_2', optional($value)->address_2, array_merge($options, ['id' => $options['id'] . '_' . 'address_2'])) }}
     @if ($formGroup)</div><div class="{{ $formGroupClass }}">@endif
 
     <div class="form-row">
         <div class="col-sm">
             @if ($label !== false)
-            {{ Form::label('city', 'City') }}
+            <label for="{{ $options['id'] . '_' . 'city' }}">City</label>
             @endif
-            {{ Form::text('city', optional($value)->city, $options) }}
+            {{ Form::text('city', optional($value)->city, array_merge($options, ['id' => $options['id'] . '_' . 'city'])) }}
         </div>
         <div class="col-sm">
             @if ($label !== false)
-            {{ Form::label('state', 'State') }}
+            <label for="{{ $options['id'] . '_' . 'state' }}">State</label>
             @endif
             @if ($states)
-            {{ Form::select('state', $states, optional($value)->state, array_merge(['placeholder' => ''], $options)) }}
+            {{ Form::select('state', $states, optional($value)->state, array_merge($options, ['placeholder' => '', 'id' => $options['id'] . '_' . 'state'])) }}
             @else
-            {{ Form::text('state', optional($value)->state, $options) }}
+            {{ Form::text('state', optional($value)->state, array_merge($options, ['id' => $options['id'] . '_' . 'state'])) }}
             @endif
         </div>
         <div class="col-sm">
             @if ($label !== false)
-            {{ Form::label('zip', 'Zip') }}
+            <label for="{{ $options['id'] . '_' . 'zip' }}">Zip</label>
             @endif
-            {{ Form::text('zip', optional($value)->zip, $options) }}
+            {{ Form::text('zip', optional($value)->zip, array_merge($options, ['id' => $options['id'] . '_' . 'zip'])) }}
         </div>
     </div>
 
