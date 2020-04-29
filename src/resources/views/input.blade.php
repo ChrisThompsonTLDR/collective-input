@@ -241,7 +241,14 @@ if (isset($options['class'])) {
     <label for="{{ $options['id'] . '_' . 'address' }}">Address</label>
     @endif
     {{ Form::text('address', optional($value)->address, array_merge($tmpOptions, ['id' => $options['id'] . '_' . 'address'])) }}
-    {{ Form::text('address_2', optional($value)->address_2, array_merge($options, ['id' => $options['id'] . '_' . 'address_2'])) }}
+    @php
+    $tmpOptions = $options;
+    $tmpOptions['id'] .= $options['id'] . '_' . 'address_2';
+    if (($key = array_search('required', $tmpOptions)) !== false) {
+        unset($tmpOptions[$key]);
+    }
+    @endphp
+    {{ Form::text('address_2', optional($value)->address_2, $tmpOptions) }}
     @if ($formGroup)</div><div class="{{ $formGroupClass }}">@endif
 
     <div class="form-row">
