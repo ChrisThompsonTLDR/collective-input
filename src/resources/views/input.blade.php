@@ -212,6 +212,17 @@ switch ($type) {
         $fieldType = $type;
 }
 
+
+// livewire
+if (in_array('livewire', $options)) {
+    $options['wire:model'] = $name;
+
+    if (($key = array_search('livewire', $options)) !== false) {
+        unset($options[$key]);
+    }
+}
+
+
 if (isset($options['class'])) {
     $options['class'] = trim($options['class']);
 }
@@ -329,12 +340,13 @@ if (isset($options['class'])) {
 
 @if ($type == 'datetime')
     @pushonce('after-styles:datetime')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css">
     @endpushonce
 
     @pushonce('after-scripts:datetime')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js" integrity="sha256-CutOzxCRucUsn6C6TcEYsauvvYilEniTXldPa6/wu0k=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <script>
         $(function () {
             $('.datetime').datetimepicker({
