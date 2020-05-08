@@ -218,7 +218,7 @@ switch ($type) {
 
 
 // livewire
-if (in_array('livewire', $options)) {
+if (in_array('livewire', $options, true)) {
     $options['wire:model'] = $name;
 
     if (($key = array_search('livewire', $options)) !== false) {
