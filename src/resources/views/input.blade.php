@@ -227,6 +227,18 @@ if (in_array('livewire', $options, true)) {
 }
 
 
+// jquery
+$includeJquery = false;
+if (in_array('jquery', $options, true) || (isset($options['jquery']) && $options['jquery'] === true)) {
+    $includeJquery = true;
+
+    if (($key = array_search('jquery', $options)) !== false) {
+        unset($options[$key]);
+    }
+    unset($options['jquery']);
+}
+
+
 if (isset($options['class'])) {
     $options['class'] = trim($options['class']);
 }
@@ -315,6 +327,12 @@ if (isset($options['class'])) {
     @endif
 @if ($formGroup)</div>@endif
 
+@if ($includeJquery)
+    @pushonce('after-scripts:jquery')
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    @endpushonce
+@endif
+
 @if ($type == 'html')
     @pushonce('after-styles:summernote')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" integrity="sha256-fPUAOwSYkVTnL8xdLidCEi5IxW+ZVfcmNJ4m/+EGVI8=" crossorigin="anonymous" />
@@ -348,7 +366,6 @@ if (isset($options['class'])) {
     @endpushonce
 
     @pushonce('after-scripts:datetime')
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <script>

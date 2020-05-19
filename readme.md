@@ -78,6 +78,20 @@ An entire mailing address form can be built with `address` type.
 ```
 
 
+## Options
+
+### livewire
+```
+{{ Form::bs('email', 'email', ['livewire']) }}
+```
+This will add `wire:model="email"` to the input, utilizing the first parameter of `bs()` to generate the [livewire](https://github.com/livewire/livewire) property name.
+
+### jQuery
+```
+{{ Form::bs('description', 'html', ['jquery']) }}
+```
+This will add the jQuery package to the DOM.  It is assumed that you already have jQuery included, so generally, you won't use this option.
+
 
 ## Automagical
 
