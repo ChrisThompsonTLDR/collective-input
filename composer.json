@@ -1,0 +1,34 @@
+{
+    "name": "christhompsontldr/collective-input",
+    "description": "A Laravel Collective form component for building Bootstrap 4 friendly form elements.",
+    "authors": [
+        {
+            "name": "Chris Thompson",
+            "email": "christhompsontldr@gmail.com",
+            "homepage": "https://christhompsontldr.com"
+        }
+    ],
+    "keywords": ["laravel" , "collective", "forms", "bootstrap"],
+    "support": {
+        "issues": "https://github.com/christhompsontldr/collective-input/issues",
+        "source": "https://github.com/christhompsontldr/collective-input"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Christhompsontldr\\CollectiveInput\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "laravelcollective/html": "^6.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Christhompsontldr\\CollectiveInput\\CollectiveInputServiceProvider"
+            ]
+        }
+    }
+}
