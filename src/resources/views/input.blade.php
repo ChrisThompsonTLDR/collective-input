@@ -274,6 +274,7 @@ if (isset($options['class'])) {
     if (($key = array_search('required', $tmpOptions)) !== false) {
         unset($tmpOptions[$key]);
     }
+    unset($tmpOptions['required']);
     @endphp
     {{ Form::text('address_2', optional($value)->address_2, $tmpOptions) }}
     @if ($formGroup)</div><div class="{{ $formGroupClass }}">@endif
