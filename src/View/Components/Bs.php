@@ -219,7 +219,7 @@ class Bs extends Component
 
         // overload options
         foreach (Arr::except(get_defined_vars(), ['name', 'type', 'options']) as $key => $val) {
-            if (!is_null($key)) {
+            if (!is_null($key) && !isset($this->options[$key])) {
                 $this->options[$key] = $val;
             }
         }
@@ -326,7 +326,7 @@ class Bs extends Component
         }
 
         // validation errors
-        if (session()->has('errors.' . $this->dotName)) {
+        if (session()->get('errors')->getBag('default')->get($this->dotName)) {
             $this->inputClasses[] = 'is-invalid';
         }
 
@@ -371,7 +371,7 @@ class Bs extends Component
      */
     private function booleans()
     {
-        foreach (['required', 'checked', 'selected'] as $key) {
+        foreach (['required', 'checked', 'selected', 'placeholder'] as $key) {
             // check if 'required' is a value, convert it to a key => true
             if (in_array($key, $this->options, true)) {
                 $this->options[$key] = true;
