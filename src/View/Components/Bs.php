@@ -326,7 +326,7 @@ class Bs extends Component
         }
 
         // validation errors
-        if (session()->get('errors')->getBag('default')->get($this->dotName)) {
+        if (optional(optional(session()->get('errors'))->getBag('default'))->get($this->dotName)) {
             $this->inputClasses[] = 'is-invalid';
         }
 
