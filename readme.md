@@ -42,16 +42,18 @@ If `false` is set as th value, the `label` or `placeholder` will be disabled/not
 
 #### Boolean
 
-The following are attributes can be boolean: `selected`, `checked` and `required`
+The following are attributes can be boolean: `checked`, `placeholder`, `selected` and `required`
 ```
-<x-form-bs name="terms_of_service" type="checkbox" :checked="true" label="I agree to the Terms of Service"/>
+<x-form-bs name="terms_of_service" type="checkbox" checked label="I agree to the Terms of Service"/>
 ```
+
+The `placeholder` options, when used as a boolean, will attempt to intelligently create a placeholder.
 
 ### Options
 
 Or if you find it easier to use a large array of options, that works as well
 ```
-<x-form-bs name="email" type="email" :options="['label' => 'Your Email', 'required' => true]"/>
+<x-form-bs name="email" type="email" :options="['label' => 'Your Email', 'required']"/>
 ```
 
 ### Shorthand Options
@@ -60,6 +62,8 @@ A few options can be passed as a value to make setting them easier.  These inclu
 
 The following generate the same DOM:
 ```
+<x-form-bs name="first_name" required/>
+
 <x-form-bs name="first_name" :options="['required']"/>
 
 <x-form-bs name="first_name" :options="['required' => true]"/>
@@ -88,6 +92,8 @@ Both will create the same DOM.
 
 # Field Types
 
+All field types are supported, not just the following list.
+
 ## Text
 
 Text will be used by default if the `type` is not specified.
@@ -103,6 +109,12 @@ generates
     <label for="email">Email</label>
     <input type="email" class="form-control" id="email" name="email">
 </div>
+```
+
+## Select
+
+```
+<x-form-bs name="timezone" :select_options="$timezones" required placeholder/>
 ```
 
 ## WYSIWYG Editor

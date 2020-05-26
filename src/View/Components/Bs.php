@@ -208,7 +208,7 @@ class Bs extends Component
      * @param  array  $options
      * @return void
      */
-    public function __construct($name, $type = 'text', $options = [], $required = null, $label = null, $selected = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelCassl = null)
+    public function __construct($name, $type = 'text', $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null)
     {
         // convert from dot syntax to HTML syntax
         $name = str_replace('.', '[', $name) . ((Str::of($name)->contains('.')) ? ']' : '');
@@ -218,22 +218,28 @@ class Bs extends Component
         $this->options = $options;
 
         // overload options
-        foreach (Arr::except(func_get_args(), ['name', 'type', 'options']) as $key) {
+        foreach (Arr::except(get_defined_vars(), ['name', 'type', 'options']) as $key => $val) {
             if (!is_null($key)) {
-                $this->options[$key] = $$key;
+                $this->options[$key] = $val;
             }
         }
 
         $this->dotName = (string) Str::of($name)->replace(['[', ']'], ['.', '']);
+
+        // change the type if appropriate
+        if (isset($this->options['selectOptions'])) {
+            $this->type = 'select';
+            $this->options['options'] = $this->options['selectOptions'];
+        }
+
+        // build the label
+        $this->label();
 
         $this->booleans();
 
         $this->classes();
 
         $this->livewireModel();
-
-        // build the label
-        $this->label();
 
         // build the id
         $this->id();
@@ -296,11 +302,6 @@ class Bs extends Component
             case 'radio':
                 $this->labelAfter = $this->label;
                 $this->label = false;
-                break;
-
-            case 'select':
-                $this->selectOptions = $this->options['options'];
-                unset($this->options['options']);
                 break;
         }
 
@@ -382,6 +383,10 @@ class Bs extends Component
             }/* else {
                 $this->options[$key] = false;
             }*/
+        }
+
+        if ($this->options['placeholder'] === true) {
+            $this->options['placeholder'] = (($this->type === 'select') ? 'Select ' : '') . $this->label;
         }
     }
 
@@ -498,7 +503,7 @@ class Bs extends Component
      */
     private function clean()
     {
-        foreach (['label', 'jquery', 'helper', 'states', 'options', 'livewire'] as $val) {
+        foreach (['label', 'jquery', 'helper', 'states', 'selectOptions', 'livewire', 'options'] as $val) {
             // is array value
 //            if (($key = array_search($val, $this->options)) !== false) {
 //                unset($this->options[$key]);
@@ -515,7 +520,11 @@ class Bs extends Component
      */
     private function parameters()
     {
-        foreach (['states', 'helper', 'options'] as $key) {
+        if (isset($this->options['options'])) {
+            $this->selectOptions = $this->options['options'];
+        }
+
+        foreach (['states', 'helper'] as $key) {
             if (isset($this->options[$key])) {
                 $this->{$key} = $this->options[$key];
             }
