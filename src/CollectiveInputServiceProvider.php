@@ -19,7 +19,7 @@ class CollectiveInputServiceProvider extends ServiceProvider
         $this->loadViewComponentsAs('form', [Bs::class]);
 
         // maintain backwards compatability with Form::bs()
-        Form::macro('bs', function ($name, $type,  $options = null) {
+        Form::macro('bs', function ($name, $type = 'text',  $options = null) {
             // shorthand was used
             if (is_array($type) && is_null($options)) {
                 $options = $type;
