@@ -211,6 +211,9 @@ If using the `Form` class, the second parameter is optional.
 {{ Form::bs('first_name', 'text', ['required']) }}
 ```
 
+# Dusk
+
+[Dusk selectors](https://laravel.com/docs/7.x/dusk#dusk-selectors) are enabled by default in any environment other than `production`.  This can by changed in `config/form.php`
 
 # Slots
 

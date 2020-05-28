@@ -208,7 +208,7 @@ class Bs extends Component
      * @param  array  $options
      * @return void
      */
-    public function __construct($name, $type = 'text', $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null)
+    public function __construct($name, $type = 'text', $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null)
     {
         // convert from dot syntax to HTML syntax
         $name = str_replace('.', '[', $name) . ((Str::of($name)->contains('.')) ? ']' : '');
@@ -235,14 +235,14 @@ class Bs extends Component
         // build the label
         $this->label();
 
+        // build the id
+        $this->id();
+
         $this->booleans();
 
         $this->classes();
 
         $this->livewireModel();
-
-        // build the id
-        $this->id();
 
         // build the value
         $this->value();
@@ -309,6 +309,11 @@ class Bs extends Component
         $this->labelClass       = implode(' ', $this->labelClasses);
         $this->groupClass       = implode(' ', $this->groupClasses);
 
+        // remove dusk selectors
+        if (!config('form.dusk')) {
+            unset($this->options['dusk']);
+        }
+
         if ($component) {
             return view('form::bs.' . $blade, get_object_vars($this));
         }
@@ -371,7 +376,7 @@ class Bs extends Component
      */
     private function booleans()
     {
-        foreach (['required', 'checked', 'selected', 'placeholder'] as $key) {
+        foreach (['required', 'checked', 'selected', 'placeholder', 'dusk'] as $key) {
             // check if 'required' is a value, convert it to a key => true
             if (in_array($key, $this->options, true)) {
                 $this->options[$key] = true;
@@ -387,6 +392,10 @@ class Bs extends Component
 
         if ($this->options['placeholder'] === true) {
             $this->options['placeholder'] = (($this->type === 'select') ? 'Select ' : '') . $this->label;
+        }
+
+        if ($this->options['dusk'] === true) {
+            $this->options['dusk'] = $this->options['id'] . '-' . $this->type;
         }
     }
 
