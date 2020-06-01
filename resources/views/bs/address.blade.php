@@ -15,7 +15,7 @@
 
         @php
         $address2Options = $options;
-        $address2Options['id'] .= $options['id'] . '_' . 'address_2';
+        $address2Options['id'] .= '_address_2';
         if (($key = array_search('required', $address2Options)) !== false) {
             unset($address2Options[$key]);
         }
