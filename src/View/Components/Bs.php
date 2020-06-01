@@ -533,7 +533,7 @@ class Bs extends Component
             $this->selectOptions = $this->options['options'];
         }
 
-        foreach (['states', 'helper'] as $key) {
+        foreach (['states', 'helper', 'after', 'before'] as $key) {
             if (isset($this->options[$key])) {
                 $this->{$key} = $this->options[$key];
             }
