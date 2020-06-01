@@ -1,4 +1,4 @@
-@extends('form::bs.base')
+@extends('form::bs.input')
 
 @section('input')
 {{ Form::file($name, $options) }}
