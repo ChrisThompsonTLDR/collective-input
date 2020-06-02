@@ -6,6 +6,7 @@ use Blade;
 use Christhompsontldr\CollectiveInput\View\Components\Bs;
 use Form;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class CollectiveInputServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,8 @@ class CollectiveInputServiceProvider extends ServiceProvider
 
         //  https://stackoverflow.com/questions/38135455/how-to-have-one-time-push-in-laravel-blade
         Blade::directive('pushonce', function ($expression) {
+            $expression = str_replace(['after-scripts', 'after-styles'], [config('form.after-scripts'), config('form.after-styles')], $expression);
+
             $domain = explode(':', trim(substr($expression, 1, -1)));
             $push_name = $domain[0];
             $push_sub = isset($domain[1]) ? $domain[1] : '';
@@ -49,23 +52,6 @@ class CollectiveInputServiceProvider extends ServiceProvider
         $this->publishes([dirname(__DIR__) . '/resources/views' => resource_path('views/vendor/form')]);
 
         $this->publishes([dirname(__DIR__) . '/config/form.php' => config_path('form.php')]);
-
-        view()->composer('form::*', function ($view) {
-            $view->with('afterScripts', config('form.after-scripts'));
-
-            $view->with('afterScriptsOnceJquery', config('form.after-scripts') . ':jquery');
-
-            $view->with('afterScriptsOnceDatetime', config('form.after-scripts') . ':datetime');
-            $view->with('afterStylesOnceDatetime', config('form.after-styles') . ':datetime');
-
-            $view->with('afterScriptsOnceFile', config('form.after-scripts') . ':file');
-
-            $view->with('afterScriptsOnceSummernote', config('form.after-scripts') . ':summernote');
-            $view->with('afterStylesOnceSummernote', config('form.after-styles') . ':summernote');
-
-            $view->with('afterScriptsOnceMarkdown', config('form.after-scripts') . ':markdown');
-            $view->with('afterStylesOnceMarkdown', config('form.after-styles') . ':markdown');
-        });
     }
 
     /**

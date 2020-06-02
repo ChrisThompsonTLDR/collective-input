@@ -267,4 +267,4 @@ If you use `markdown`, `html`, `file` or `datetime` types, you will need to incl
 </body>
 ```
 
-The names of these slots can be configured as part of this package.
+The names of these slots can be configured as part of this package.  Because of the way Laravel Blade/View caching works, you will need to run `php artisan view:clear` if you change these config parameters.

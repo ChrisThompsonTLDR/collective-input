@@ -275,14 +275,7 @@ class Bs extends Component
                 break;
 
             case 'html':
-                $this->wysiwyg = true;
-                $blade = 'textarea';
                 $this->options['required'] = false; // Summernote had a validation/js bug
-                break;
-
-            case 'markdown':
-                $this->markdown = true;
-                $blade = 'textarea';
                 break;
 
             case 'datetime':
