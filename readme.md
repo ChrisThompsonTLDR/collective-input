@@ -202,6 +202,14 @@ Add a class to the label.
 <x-form-bs name="first_name" label-class="custom-class"/>
 ```
 
+## Helper
+
+Utilize the `helper` attribute to add a input help block below the input.
+
+```
+<x-form-bs name="first_name" helper="Please enter your first name.">
+```
+
 ## Optional Second Parameter
 
 If using the `Form` class, the second parameter is optional.

@@ -208,7 +208,7 @@ class Bs extends Component
      * @param  array  $options
      * @return void
      */
-    public function __construct($name, $type = 'text', $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null)
+    public function __construct($name, $type = 'text', $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null)
     {
         // convert from dot syntax to HTML syntax
         $name = str_replace('.', '[', $name) . ((Str::of($name)->contains('.')) ? ']' : '');
@@ -369,7 +369,7 @@ class Bs extends Component
      */
     private function booleans()
     {
-        foreach (['required', 'checked', 'placeholder', 'dusk'] as $key) {
+        foreach (['required', 'checked', 'selected', 'placeholder', 'dusk'] as $key) {
             // check if 'required' is a value, convert it to a key => true
             if (in_array($key, $this->options, true)) {
                 $this->options[$key] = true;
@@ -505,7 +505,7 @@ class Bs extends Component
      */
     private function clean()
     {
-        foreach (['label', 'jquery', 'helper', 'states', 'selectOptions', 'livewire', 'options', 'selected'] as $val) {
+        foreach (['label', 'jquery', 'helper', 'states', 'selectOptions', 'livewire', 'options'] as $val) {
             // is array value
 //            if (($key = array_search($val, $this->options)) !== false) {
 //                unset($this->options[$key]);
