@@ -113,6 +113,8 @@ generates
 
 ## Select
 
+Notice in the following example that `type` is not set.   It will automatically be determined because `select_options` is set.
+
 ```
 <x-form-bs name="timezone" :select_options="$timezones" required placeholder/>
 ```
