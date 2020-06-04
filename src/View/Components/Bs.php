@@ -201,6 +201,13 @@ class Bs extends Component
     private $labelClasses = [];
 
     /**
+     * Whether or not the radio/checkbox is checked
+     *
+     * @var boolean
+     */
+    public $checked;
+
+    /**
      * Create the component instance.
      *
      * @param  string  $name
@@ -298,9 +305,9 @@ class Bs extends Component
                 break;
         }
 
-        $this->options['class'] = implode(' ', $this->inputClasses);
-        $this->labelClass       = implode(' ', $this->labelClasses);
-        $this->groupClass       = implode(' ', $this->groupClasses);
+        $this->options['class'] = implode(' ', array_map('trim', $this->inputClasses));
+        $this->labelClass       = implode(' ', array_map('trim', $this->labelClasses));
+        $this->groupClass       = implode(' ', array_map('trim', $this->groupClasses));
 
         // remove dusk selectors
         if (!config('form.dusk')) {
@@ -318,6 +325,11 @@ class Bs extends Component
     {
 
         // Input
+
+        // nothing set by application
+        if (in_array($this->type, ['checkbox', 'radio']) && $this->inputClass === 'form-control') {
+            $this->inputClass = 'form-check-input';
+        }
 
         if (!empty($this->inputClass)) {
             $this->inputClasses[] = $this->inputClass;
@@ -340,14 +352,16 @@ class Bs extends Component
 
         // Group
 
+        // nothing set by application
+        if (in_array($this->type, ['checkbox', 'radio']) && $this->groupClass === 'form-group') {
+            $this->groupClass = 'form-check';
+        }
+
         if (!empty($this->groupClass)) {
             $this->groupClasses[] = $this->groupClass;
         }
 
-        if (in_array($this->type, ['checkbox', 'radio'])) {
-            $this->groupClasses[] = 'form-check';
-        }
-        elseif ($this->type === 'file') {
+        if ($this->type === 'file') {
             $this->groupClasses[] = 'custom-file';
 
             // remove the default Bootstrap class
@@ -359,8 +373,14 @@ class Bs extends Component
 
         // Label
 
-        if ($this->type === 'file') {
-            $this->labelClasses[] = 'custom-file-label';
+        // nothing set by application
+        if (empty($this->labelClass)) {
+            if (in_array($this->type, ['checkbox', 'radio'])) {
+                $this->labelClasses[] = 'form-check-label';
+            }
+            elseif ($this->type === 'file') {
+                $this->labelClasses[] = 'custom-file-label';
+            }
         }
     }
 
@@ -378,9 +398,7 @@ class Bs extends Component
                 if (($int = array_search($key, $this->options)) !== false) {
                     unset($this->options[$int]);
                 }
-            }/* else {
-                $this->options[$key] = false;
-            }*/
+            }
         }
 
         if ($this->options['placeholder'] === true) {
@@ -505,11 +523,11 @@ class Bs extends Component
      */
     private function clean()
     {
-        foreach (['label', 'jquery', 'helper', 'states', 'selectOptions', 'livewire', 'options'] as $val) {
+        foreach (['label', 'jquery', 'helper', 'states', 'selectOptions', 'livewire', 'options', 'checked'] as $val) {
             // is array value
-//            if (($key = array_search($val, $this->options)) !== false) {
-//                unset($this->options[$key]);
-//            }
+            if (($key = array_search($val, $this->options)) !== false) {
+                unset($this->options[$key]);
+            }
 
             // is array key
             unset($this->options[$val]);
@@ -526,7 +544,7 @@ class Bs extends Component
             $this->selectOptions = $this->options['options'];
         }
 
-        foreach (['states', 'helper', 'after', 'before'] as $key) {
+        foreach (['states', 'helper', 'after', 'before', 'checked'] as $key) {
             if (isset($this->options[$key])) {
                 $this->{$key} = $this->options[$key];
             }
