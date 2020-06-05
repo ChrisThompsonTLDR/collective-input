@@ -208,6 +208,13 @@ class Bs extends Component
     public $checked;
 
     /**
+     * Is this a livewire model input
+     *
+     * @var boolean
+     */
+    public $livewire;
+
+    /**
      * Create the component instance.
      *
      * @param  string  $name
@@ -215,7 +222,7 @@ class Bs extends Component
      * @param  array  $options
      * @return void
      */
-    public function __construct($name, $type = 'text', $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null)
+    public function __construct($name, $type = 'text', $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null, $livewire = null)
     {
         // convert from dot syntax to HTML syntax
         $name = str_replace('.', '[', $name) . ((Str::of($name)->contains('.')) ? ']' : '');
@@ -398,12 +405,12 @@ class Bs extends Component
      */
     private function booleans()
     {
-        foreach (['required', 'checked', 'selected', 'placeholder', 'dusk'] as $key) {
+        foreach (['required', 'checked', 'selected', 'placeholder', 'dusk', 'livewire'] as $key) {
             // check if 'required' is a value, convert it to a key => true
             if (in_array($key, $this->options, true)) {
                 $this->options[$key] = true;
 
-                // remove the 'required' value
+                // remove the value as it is now a key
                 if (($int = array_search($key, $this->options)) !== false) {
                     unset($this->options[$int]);
                 }
@@ -424,7 +431,7 @@ class Bs extends Component
      */
     private function livewireModel()
     {
-        if (in_array('livewire', $this->options, true)) {
+        if (Arr::get($this->options, 'livewire', false)) {
             $this->options['wire:model'] = $this->name;
         }
     }
