@@ -314,6 +314,11 @@ class Bs extends Component
             unset($this->options['dusk']);
         }
 
+        // default to using the text blade
+        if (!view()->exists('form::bs.' . $this->type)) {
+            $blade = 'text';
+        }
+
         if ($component) {
             return view('form::bs.' . $blade, get_object_vars($this));
         }
