@@ -315,7 +315,7 @@ class Bs extends Component
         }
 
         // default to using the text blade
-        if (!view()->exists('form::bs.' . $this->type)) {
+        if (!view()->exists('form::bs.' . $blade)) {
             $blade = 'text';
         }
 
