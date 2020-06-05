@@ -340,8 +340,12 @@ class Bs extends Component
             $this->inputClasses[] = $this->inputClass;
         }
 
-        // validation errors
+        // validation errors in session
         if (optional(optional(session()->get('errors'))->getBag('default'))->get($this->dotName)) {
+            $this->inputClasses[] = 'is-invalid';
+        }
+        // validation errors in livewire
+        if (optional(optional(view()->getShared()['errors'])->getBag('default'))->get($this->dotName)) {
             $this->inputClasses[] = 'is-invalid';
         }
 
