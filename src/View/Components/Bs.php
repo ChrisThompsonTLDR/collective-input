@@ -222,10 +222,19 @@ class Bs extends Component
      * @param  array  $options
      * @return void
      */
-    public function __construct($name, $type = 'text', $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null, $livewire = null)
+    public function __construct($name, $type = null, $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null, $livewire = null)
     {
         // convert from dot syntax to HTML syntax
         $name = str_replace('.', '[', $name) . ((Str::of($name)->contains('.')) ? ']' : '');
+
+        // automatically assign the type
+        if (is_null($type)) {
+            if ($name === 'email') {
+                $type = 'email';
+            } else {
+                $type = 'text';
+            }
+        }
 
         $this->name    = $name;
         $this->type    = $type;
