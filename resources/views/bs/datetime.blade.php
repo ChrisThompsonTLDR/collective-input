@@ -1,9 +1,9 @@
 @extends('form::bs.input')
 
 @section('input')
-<div class="input-group date" id="{{ $id }}" data-target-input="nearest">
-    <input type="text" name="{{ $name }}" class="{{ $class }}" data-target="#{{ $id }}">
-    <div class="input-group-append" data-target="#{{ $id }}" data-toggle="datetimepicker">
+<div class="input-group date" id="{{ $options['id'] }}" data-target-input="nearest">
+    <input type="text" name="{{ $name }}" class="{{ $inputClass }}" data-target="#{{ $options['id'] }}">
+    <div class="input-group-append" data-target="#{{ $options['id'] }}" data-toggle="datetimepicker">
         <div class="input-group-text"><i class="fal fa-calendar-alt"></i></div>
     </div>
 </div>

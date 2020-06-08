@@ -305,8 +305,8 @@ class Bs extends Component
                 $blade = 'datetime';
 
                 // add .datetime to the input if it hasn't been already
-                if ($this->class !== 'datetime' && !Str::of($this->class)->contains([' datetime', 'datetime '])) {
-                    $this->class .= ' datetime';
+                if ($this->inputClass !== 'datetime' && !Str::of($this->inputClass)->contains([' datetime', 'datetime '])) {
+                    $this->inputClass .= ' datetime';
                 }
                 break;
 
