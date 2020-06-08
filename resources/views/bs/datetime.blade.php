@@ -19,12 +19,6 @@
 <script>
     $(function () {
         $('.datetime').datetimepicker({
-            icons: {
-                time: "fal fa-clock",
-                date: "fal fa-calendar-alt",
-                up: "fal fa-arrow-up",
-                down: "fal fa-arrow-down"
-            },
             defaultDate: "{{ $value }}",
         });
     });

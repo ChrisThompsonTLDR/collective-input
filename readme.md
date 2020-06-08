@@ -137,9 +137,13 @@ If the type is set to `markdown`, the input will be converted to a [SimpleMDE ed
 
 ## File
 
-If the type is set to `file`, the input will be converted to a [bs-custom-file-input](https://github.com/Johann-S/bs-custom-file-input).
+If the type is `file`, the input will be converted to a [bs-custom-file-input](https://github.com/Johann-S/bs-custom-file-input).
 
 The generated DOM will be [Bootstrap's markup](https://getbootstrap.com/docs/4.5/components/forms/#file-browser).
+
+## Datetime
+
+The datetime picker utilizes [tempusdominus/bootstrap-4](https://github.com/tempusdominus/bootstrap-4) and assumes that you have FontAwesome 5 loaded.
 
 ## Form Group
 
