@@ -222,7 +222,7 @@ class Bs extends Component
      * @param  array  $options
      * @return void
      */
-    public function __construct($name, $type = null, $options = [], $value = null, $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null, $livewire = null)
+    public function __construct($name, $type = null, $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null, $livewire = null)
     {
         // convert from dot syntax to HTML syntax
         $name = str_replace('.', '[', $name) . ((Str::of($name)->contains('.')) ? ']' : '');
@@ -239,10 +239,9 @@ class Bs extends Component
         $this->name    = $name;
         $this->type    = $type;
         $this->options = $options;
-        $this->value   = $value;
 
         // overload options
-        foreach (Arr::except(get_defined_vars(), ['name', 'type', 'options', 'value']) as $key => $val) {
+        foreach (Arr::except(get_defined_vars(), ['name', 'type', 'options']) as $key => $val) {
             if (!is_null($key) && !isset($this->options[$key])) {
                 $this->options[$key] = $val;
             }
@@ -355,6 +354,12 @@ class Bs extends Component
 
         if (!empty($this->inputClass)) {
             $this->inputClasses[] = $this->inputClass;
+        }
+
+        // backwards compatibility with v2
+        if (isset($this->options['class'])) {
+            $this->inputClasses[] = $this->options['class'];
+            unset($this->options['class']);
         }
 
         // validation errors in session
@@ -497,9 +502,9 @@ class Bs extends Component
     private function value()
     {
         // start with the old() value
-        $value = old($this->name, $this->value);
+        $value = old($this->name, null);
 
-        // old style of setting it through options array
+        // allow the blade to set it
         $value = Arr::get($this->options, 'value', $value);
 
         // use the model value
