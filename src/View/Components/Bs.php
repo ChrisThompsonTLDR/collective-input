@@ -385,7 +385,7 @@ class Bs extends Component
 
         // nothing set by application
         if (in_array($this->type, ['checkbox', 'radio']) && $this->groupClass === 'form-group') {
-            $this->groupClass = 'form-check';
+            $this->groupClass .= ' form-check';
         }
 
         if (!empty($this->groupClass)) {
