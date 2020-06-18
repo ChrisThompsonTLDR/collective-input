@@ -231,6 +231,16 @@ If using the `Form` class, the second parameter is optional.
 
 # Slots
 
+Because every parameter can also be a slot, if you have a more complex need for passing DOM into part of this component, [Blade slots](https://laravel.com/docs/master/blade#slots) can be used.
+
+```
+<x-form-bs name="tos" type="checkbox">
+    <x-slot name="label">
+        I agree to the <a href="#" x-on:click.prevent="openModal('cancellationTermsModal')">cancellation terms</a>
+    </x-slot>
+</x-form-bs>
+```
+
 This package provides two [Blade slots](https://laravel.com/docs/master/blade#slots) for injecting DOM before and after the input.
 
 ## Before

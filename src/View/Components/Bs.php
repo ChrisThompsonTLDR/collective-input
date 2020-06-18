@@ -51,9 +51,9 @@ class Bs extends Component
      * render after the input DOM
      *
      * @see https://getbootstrap.com/docs/4.5/components/forms/#checkboxes-and-radios
-     * @var string|boolean
+     * @var boolean
      */
-    public $labelAfter = '';
+    public $labelAfter = false;
 
     /**
      * Display the input helper
@@ -316,7 +316,7 @@ class Bs extends Component
 
             case 'checkbox':
             case 'radio':
-                $this->labelAfter = $this->label;
+                $this->labelAfter = true;
                 $this->label = false;
                 break;
         }
