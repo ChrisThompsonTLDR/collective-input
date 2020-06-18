@@ -317,7 +317,6 @@ class Bs extends Component
             case 'checkbox':
             case 'radio':
                 $this->labelAfter = true;
-                $this->label = false;
                 break;
         }
 
