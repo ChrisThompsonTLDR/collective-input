@@ -239,15 +239,20 @@ class Bs extends Component
         $this->name    = $name;
         $this->type    = $type;
         $this->options = $options;
+        $this->dotName = (string) Str::of($this->name)->replace(['[', ']'], ['.', '']);
 
         // overload options
         foreach (Arr::except(get_defined_vars(), ['name', 'type', 'options']) as $key => $val) {
+            // 'livewire' is keyed slightly different
+            if ($key === 'livewire' && $val === true) {
+                $key = 'wire:model';
+                $val = $this->dotName;
+            }
+
             if (!is_null($key) && !isset($this->options[$key])) {
                 $this->options[$key] = $val;
             }
         }
-
-        $this->dotName = (string) Str::of($name)->replace(['[', ']'], ['.', '']);
 
         // change the type if appropriate
         if (isset($this->options['selectOptions'])) {
@@ -446,7 +451,7 @@ class Bs extends Component
     private function livewireModel()
     {
         if (Arr::get($this->options, 'livewire', false)) {
-            $this->options['wire:model'] = $this->name;
+            $this->options['wire:model'] = $this->dotName;
         }
     }
 
