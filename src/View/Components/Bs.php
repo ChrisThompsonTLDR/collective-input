@@ -222,7 +222,7 @@ class Bs extends Component
      * @param  array  $options
      * @return void
      */
-    public function __construct($name, $type = null, $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null, $livewire = null)
+    public function __construct($name, $type = null, $options = [], $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null, $livewire = null, $inputClass = null, $states = null)
     {
         // convert from dot syntax to HTML syntax
         $name = str_replace('.', '[', $name) . ((Str::of($name)->contains('.')) ? ']' : '');
@@ -242,7 +242,7 @@ class Bs extends Component
         $this->dotName = (string) Str::of($this->name)->replace(['[', ']'], ['.', '']);
 
         // overload options
-        foreach (Arr::except(get_defined_vars(), ['name', 'type', 'options']) as $key => $val) {
+        foreach (Arr::except(get_defined_vars(), ['name', 'type', 'options', 'states']) as $key => $val) {
             // 'livewire' is keyed slightly different
             if ($key === 'livewire' && $val === true) {
                 $key = 'wire:model';
@@ -258,6 +258,13 @@ class Bs extends Component
         if (isset($this->options['selectOptions'])) {
             $this->type = 'select';
             $this->options['options'] = $this->options['selectOptions'];
+        }
+
+        // allow states to be set to input
+        if ($this->type === 'address') {
+            if (!is_null($states)) {
+                $this->states = $states;
+            }
         }
 
         // build the label
@@ -356,14 +363,23 @@ class Bs extends Component
             $this->inputClass = 'form-check-input';
         }
 
-        if (!empty($this->inputClass)) {
-            $this->inputClasses[] = $this->inputClass;
-        }
-
-        // backwards compatibility with v2
-        if (isset($this->options['class'])) {
-            $this->inputClasses[] = $this->options['class'];
+        // v2
+        if (!empty($this->options['class'])) {
+            foreach (explode(' ', $this->options['class']) as $class) {
+                $this->inputClasses[] = $class;
+            }
             unset($this->options['class']);
+        }
+        // v3
+        elseif (!empty($this->options['inputClass'])) {
+            foreach (explode(' ', $this->options['inputClass']) as $class) {
+                $this->inputClasses[] = $class;
+            }
+            unset($this->options['inputClass']);
+        }
+        // default
+        else {
+            $this->inputClasses[] = $this->inputClass;
         }
 
         // validation errors in session
@@ -513,7 +529,7 @@ class Bs extends Component
 
         // use the model value
         if (is_null($value)) {
-            optional(Form::getModel())->{$this->name};
+            $value = optional(Form::getModel())->{$this->name};
         }
 
         // no value set yet
