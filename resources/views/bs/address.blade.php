@@ -16,8 +16,11 @@
         @php
         $address2Options = $options;
         $address2Options['id'] .= '_address_2';
-        if (($key = array_search('required', $address2Options)) !== false) {
+        if (($key = array_search('required', $address2Options, true)) !== false) {
             unset($address2Options[$key]);
+        }
+        if (isset($options['wire:model'])) {
+            $address2Options['wire:model'] = 'address_2';
         }
         @endphp
 
