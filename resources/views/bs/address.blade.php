@@ -28,6 +28,12 @@
 
     <div class="form-row">
         <div class="col-sm">
+            @php
+                if (isset($options['wire:model'])) {
+                    $options['wire:model'] = 'city';
+                }
+            @endphp
+
             @if($formGroup)<div {!! ((isset($groupClass)) ? 'class="' . $groupClass . '"' : '') !!}>@endif
                 @if ($label)<label for="{{ $options['id'] . '_' . 'city' }}">City</label>@endif
                 {{ Form::text('city', optional($value)->city, array_merge($options, ['id' => $options['id'] . '_' . 'city'])) }}
@@ -35,6 +41,11 @@
             @if($formGroup)</div>@endif
         </div>
         <div class="col-sm">
+            @php
+                if (isset($options['wire:model'])) {
+                    $options['wire:model'] = 'state';
+                }
+            @endphp
             @if($formGroup)<div {!! ((isset($groupClass)) ? 'class="' . $groupClass . '"' : '')  !!}>@endif
                 @if ($label)<label for="{{ $options['id'] . '_' . 'state' }}">State</label>@endif
                 @if ($states)
@@ -46,6 +57,11 @@
             @if($formGroup)</div>@endif
         </div>
         <div class="col-sm">
+            @php
+                if (isset($options['wire:model'])) {
+                    $options['wire:model'] = 'zip';
+                }
+            @endphp
             @if($formGroup)<div {!! ((isset($groupClass)) ? 'class="' . $groupClass . '"' : '') !!}>@endif
                 @if ($label !== false)<label for="{{ $options['id'] . '_' . 'zip' }}">Zip</label>@endif
                 {{ Form::text('zip', optional($value)->zip, array_merge($options, ['id' => $options['id'] . '_' . 'zip'])) }}
