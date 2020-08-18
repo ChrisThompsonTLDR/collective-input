@@ -379,7 +379,7 @@ class Bs extends Component
             $this->inputClasses[] = 'custom-file-input';
 
             // remove the default Bootstrap class
-            if (($key = array_search('form-control', $this->options)) !== false) {
+            if (($key = array_search('form-control', $this->options, true)) !== false) {
                 unset($this->inputClasses[$key]);
             }
         }
@@ -400,7 +400,7 @@ class Bs extends Component
             $this->groupClasses[] = 'custom-file';
 
             // remove the default Bootstrap class
-            if (($key = array_search('form-group', $this->options)) !== false) {
+            if (($key = array_search('form-group', $this->options, true)) !== false) {
                 unset($this->inputClasses[$key]);
             }
         }
@@ -430,7 +430,7 @@ class Bs extends Component
                 $this->options[$key] = true;
 
                 // remove the value as it is now a key
-                if (($int = array_search($key, $this->options)) !== false) {
+                if (($int = array_search($key, $this->options, true)) !== false) {
                     unset($this->options[$int]);
                 }
             }
