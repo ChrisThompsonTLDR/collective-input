@@ -450,9 +450,9 @@ class Bs extends Component
      */
     private function livewireModel()
     {
-        if (Arr::get($this->options, 'livewire', false)) {
-            $this->options['wire:model'] = $this->dotName;
-        }
+        $this->options['wire:model'] = Arr::get($this->options, 'livewire', $this->options['id']);
+
+        unset($this->options['livewire']);
     }
 
     /**
