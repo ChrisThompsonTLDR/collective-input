@@ -323,6 +323,10 @@ class Bs extends Component
             case 'radio':
                 $this->labelAfter = true;
                 break;
+
+            case 'hidden':
+                $this->formGroup = false;
+                break;
         }
 
         $this->options['class'] = implode(' ', array_map('trim', $this->inputClasses));
