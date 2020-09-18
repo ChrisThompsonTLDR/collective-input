@@ -356,8 +356,17 @@ class Bs extends Component
         // Input
 
         // nothing set by application
-        if (in_array($this->type, ['checkbox', 'radio']) && $this->inputClass === 'form-control') {
-            $this->inputClass = 'form-check-input';
+        if ($this->inputClass === 'form-control') {
+            //  do input specific logic
+            switch ($this->type) {
+                case 'checkbox':
+                case 'radio':
+                    $this->inputClass = 'form-check-input';
+                    break;
+                case 'hidden':
+                    $this->inputClass = '';
+                    break;
+            }
         }
 
         if (!empty($this->inputClass)) {
