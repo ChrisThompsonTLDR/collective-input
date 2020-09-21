@@ -576,7 +576,7 @@ class Bs extends Component
      */
     private function clean()
     {
-        foreach (['label', 'jquery', 'helper', 'states', 'selectOptions', 'livewire', 'options', 'checked'] as $val) {
+        foreach (['label', 'jquery', 'helper', 'states', 'selectOptions', 'livewire', 'options', 'checked', 'after'] as $val) {
             // is array value
             if (($key = array_search($val, $this->options, true)) !== false) {
                 unset($this->options[$key]);
