@@ -585,6 +585,10 @@ class Bs extends Component
             // is array key
             unset($this->options[$val]);
         }
+
+        if ($this->type === 'select') {
+            unset($this->options['value']);
+        }
     }
 
     /**
