@@ -222,7 +222,7 @@ class Bs extends Component
      * @param  array  $options
      * @return void
      */
-    public function __construct($name, $type = null, $options = [], $value = null, $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null, $livewire = null, $id = null, $disabled = null)
+    public function __construct($name, $type = null, $options = [], $value = null, $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null, $livewire = null, $id = null, $disabled = null, $readonly = null)
     {
         // convert from dot syntax to HTML syntax
         $name = str_replace('.', '[', $name) . ((Str::of($name)->contains('.')) ? ']' : '');
