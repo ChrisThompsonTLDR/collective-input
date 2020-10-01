@@ -502,19 +502,13 @@ class Bs extends Component
      */
     private function id()
     {
-        if ($id = Arr::get($this->options, 'id', true)) {
-            // auto generate label
-            if ($id === true) {
-                $id = Str::of($this->name);
+        // nothing passed
+        if (is_null(Arr::get($this->options, 'id', null))) {
+            $id = Str::of($this->name);
 
-                $id = $id->replace(['_', '[', ']', '.'], ' ');
+            $id = $id->replace(['_', '[', ']', '.'], ' ');
 
-                $this->options['id'] = trim((string) $id->slug());
-            }
-            // string was passed, not modify it
-            else {
-                $this->options['id'] = $id;
-            }
+            $this->options['id'] = trim((string) $id->slug());
         }
     }
 
