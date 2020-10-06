@@ -231,7 +231,11 @@ class Bs extends Component
         if (is_null($type)) {
             if ($name === 'email') {
                 $type = 'email';
-            } else {
+            }
+            elseif ($name === 'password' || $name === 'password_confirmation') {
+                $type = 'password';
+            }
+            else {
                 $type = 'text';
             }
         }
