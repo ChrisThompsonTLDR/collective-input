@@ -19,6 +19,8 @@
         if (($key = array_search('required', $address2Options, true)) !== false) {
             unset($address2Options[$key]);
         }
+        unset($address2Options['required']);
+
         if (isset($options['wire:model'])) {
             $address2Options['wire:model'] = 'address_2';
         }
