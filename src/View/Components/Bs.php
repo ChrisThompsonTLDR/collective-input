@@ -443,7 +443,7 @@ class Bs extends Component
     {
         foreach (['required', 'checked', 'selected', 'placeholder', 'dusk', 'livewire'] as $key) {
             // check if 'required' is a value, convert it to a key => true
-            if (in_array($key, $this->options, true)) {
+            if (in_array($key, $this->options, true) && is_numeric($key)) {
                 $this->options[$key] = true;
 
                 // remove the value as it is now a key
