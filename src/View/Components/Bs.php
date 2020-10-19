@@ -467,7 +467,13 @@ class Bs extends Component
      */
     private function livewireModel()
     {
-        $this->options['wire:model'] = Arr::get($this->options, 'livewire', str_replace('.', '_', $this->dotName));
+        if ($livewire = Arr::get($this->options, 'livewire')) {
+            if ($livewire === true) {
+                $this->options['wire:model'] = str_replace('.', '_', $this->dotName);
+            } else {
+                $this->options['wire:model'] = $livewire;
+            }
+        }
 
         unset($this->options['livewire']);
     }
