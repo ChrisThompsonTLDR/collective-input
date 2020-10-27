@@ -443,7 +443,7 @@ class Bs extends Component
     {
         foreach (['required', 'checked', 'selected', 'placeholder', 'dusk', 'livewire'] as $key) {
             // check if 'required' is a value, convert it to a key => true
-            if (in_array($key, $this->options, true) && is_numeric($key)) {
+            if (in_array($key, $this->options, true)) {
                 $this->options[$key] = true;
 
                 // remove the value as it is now a key
@@ -467,13 +467,7 @@ class Bs extends Component
      */
     private function livewireModel()
     {
-        if ($livewire = Arr::get($this->options, 'livewire')) {
-            if ($livewire === true) {
-                $this->options['wire:model'] = str_replace('.', '_', $this->dotName);
-            } else {
-                $this->options['wire:model'] = $livewire;
-            }
-        }
+        $this->options['wire:model'] = Arr::get($this->options, 'livewire', str_replace('.', '_', $this->dotName));
 
         unset($this->options['livewire']);
     }
@@ -535,7 +529,7 @@ class Bs extends Component
 
         // use the model value
         if (is_null($value)) {
-            optional(Form::getModel())->{$this->name};
+            $value = optional(Form::getModel())->{$this->name};
         }
 
         // no value set yet
