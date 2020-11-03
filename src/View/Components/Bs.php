@@ -264,20 +264,6 @@ class Bs extends Component
             $this->options['options'] = $this->options['selectOptions'];
         }
 
-        if ($this->type !== 'hidden') {
-            $this->formGroup = isset($this->options['form-group']) && $this->options['form-group'] === false
-                ? false
-                : $this->formGroup;
-
-            $this->groupClass = isset($this->options['form-group']) && isset($this->options['form-group']['class'])
-                ? $this->options['form-group']['class']
-                : $this->groupClass;
-
-            if ($this->groupClass) {
-                unset($this->options['form-group']);
-            }
-        }
-
         // build the label
         $this->label();
 
@@ -395,6 +381,21 @@ class Bs extends Component
         if (isset($this->options['class'])) {
             $this->inputClasses[] = $this->options['class'];
             unset($this->options['class']);
+        }
+
+
+        if ($this->type !== 'hidden') {
+            $this->formGroup = isset($this->options['form-group']) && $this->options['form-group'] === false
+                ? false
+                : $this->formGroup;
+
+            $this->groupClass = isset($this->options['form-group']) && isset($this->options['form-group']['class'])
+                ? $this->options['form-group']['class']
+                : $this->groupClass;
+
+            if ($this->groupClass) {
+                unset($this->options['form-group']);
+            }
         }
 
         // validation errors in session
