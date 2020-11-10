@@ -484,6 +484,11 @@ class Bs extends Component
     {
         $this->options['wire:model'] = Arr::get($this->options, 'livewire', str_replace('.', '_', $this->dotName));
 
+        // backwards compat
+        if ($this->options['wire:model'] === true) {
+            $this->options['wire:model'] = str_replace('.', '_', $this->dotName);
+        }
+
         unset($this->options['livewire']);
     }
 
