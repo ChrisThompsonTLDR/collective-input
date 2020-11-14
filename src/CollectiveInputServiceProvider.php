@@ -2,11 +2,11 @@
 
 namespace Christhompsontldr\CollectiveInput;
 
-use Blade;
 use Christhompsontldr\CollectiveInput\View\Components\Bs;
+use Christhompsontldr\CollectiveInput\View\Components\Tw;
 use Form;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 
 class CollectiveInputServiceProvider extends ServiceProvider
 {
@@ -18,6 +18,8 @@ class CollectiveInputServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewComponentsAs('form', [Bs::class]);
+
+        $this->loadViewComponentsAs('form', [Tw::class]);
 
         // maintain backwards compatability with Form::bs()
         Form::macro('bs', function ($name, $type = 'text',  $options = null) {
