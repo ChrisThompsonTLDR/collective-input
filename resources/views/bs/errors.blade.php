@@ -11,4 +11,5 @@ if (isset($options)) {
     }
 }
 @endphp
-@error($errorName)<small class="invalid-feedback">{{ $message }}</small>@enderror
+
+@error((string) $errorName)<small class="invalid-feedback">{{ $message }}</small>@enderror
