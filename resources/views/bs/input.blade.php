@@ -7,7 +7,7 @@
         @yield('input')
         @if($label && $labelAfter)<label for="{{ $options['id'] }}" @if ($labelClass){!! 'class="' . $labelClass . '"' !!}@endif>{!! $label !!}</label>@endif
         @if($helper)<small id="{{ $name }}Help" class="form-text text-muted">{{ $helper }}</small>@endif
-        @error($dotName)<small class="invalid-feedback">{{ $message }}</small>@enderror
+        @include('form::bs.errors', ['errorName' => $dotName])
         {!! $after !!}
     @if($formGroup)</div>@endif
 @overwrite

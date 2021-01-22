@@ -33,7 +33,7 @@
 
         {{ Form::text($address2Name, optional($value)->address_2, $address2Options) }}
         @if($helper)<small id="{{ $name }}Help" class="form-text text-muted">{{ $helper }}</small>@endif
-        @error($dotName)<small class="invalid-feedback">{{ $message }}</small>@endif
+        @include('form::bs.errors', ['errorName' => $dotName])
     @if($formGroup)</div>@endif
 
     <div class="form-row">
@@ -52,7 +52,7 @@
             @if($formGroup)<div {!! ((isset($groupClass)) ? 'class="' . $groupClass . '"' : '') !!}>@endif
                 @if ($label)<label for="{{ $options['id'] . '_' . 'city' }}">City</label>@endif
                 {{ Form::text($cityName, optional($value)->city, array_merge($options, ['id' => $options['id'] . '_' . 'city'])) }}
-                @error('city')<small class="invalid-feedback">{{ $message }}</small>@endif
+                @include('form::bs.errors', ['errorName' => $cityName])
             @if($formGroup)</div>@endif
         </div>
         <div class="col-sm">
@@ -73,7 +73,7 @@
                 @else
                 {{ Form::text($stateName, optional($value)->state, array_merge($options, ['id' => $options['id'] . '_' . 'state'])) }}
                 @endif
-                @error('state')<small class="invalid-feedback">{{ $message }}</small>@endif
+                @include('form::bs.errors', ['errorName' => $stateName])
             @if($formGroup)</div>@endif
         </div>
         <div class="col-sm">
@@ -90,7 +90,7 @@
             @if($formGroup)<div {!! ((isset($groupClass)) ? 'class="' . $groupClass . '"' : '') !!}>@endif
                 @if ($label !== false)<label for="{{ $options['id'] . '_' . 'zip' }}">Zip</label>@endif
                 {{ Form::text($zipName, optional($value)->zip, array_merge($options, ['id' => $options['id'] . '_' . 'zip'])) }}
-                @error('zip')<small class="invalid-feedback">{{ $message }}</small>@endif
+                @include('form::bs.errors', ['errorName' => $zipName])
             @if($formGroup)</div>@endif
         </div>
     </div>
