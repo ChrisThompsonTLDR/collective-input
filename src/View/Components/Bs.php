@@ -454,6 +454,10 @@ class Bs extends Component
 
         if (!empty($this->groupClass)) {
             $this->groupClasses[] = $this->groupClass;
+
+            if (Arr::get($this->options, 'required')) {
+                $this->groupClasses[] = config('form.required.class');
+            }
         }
 
         if ($this->type === 'file') {
@@ -558,6 +562,10 @@ class Bs extends Component
             $this->label = trim(ucwords((string) $label));
         } else {
             $this->label = $label;
+        }
+
+        if (!empty($this->label) && Arr::get($this->options, 'required')) {
+            $this->label .= config('form.required.helper');
         }
     }
 
