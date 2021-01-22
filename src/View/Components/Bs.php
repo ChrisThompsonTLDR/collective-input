@@ -222,8 +222,28 @@ class Bs extends Component
      * @param  array  $options
      * @return void
      */
-    public function __construct($name, $type = null, $options = [], $value = null, $required = null, $label = null, $selected = null, $selectOptions = null, $checked = null, $placeholder = null, $formGroup = null, $groupClass = null, $labelClass = null, $dusk = null, $helper = null, $livewire = null, $id = null, $disabled = null, $readonly = null)
-    {
+    public function __construct(
+        $name, $type = null,
+        $options = [],
+        $value = null,
+        $required = null,
+        $label = null,
+        $selected = null,
+        $selectOptions = null,
+        $checked = null,
+        $placeholder = null,
+        $formGroup = null,
+        $groupClass = null,
+        $labelClass = null,
+        $dusk = null,
+        $helper = null,
+        $livewire = null,
+        $wireLazy = null,
+        $wireDefer = null,
+        $id = null,
+        $disabled = null,
+        $readonly = null
+    ) {
         // convert from dot syntax to HTML syntax
         $name = str_replace('.', '[', $name) . ((Str::of($name)->contains('.')) ? ']' : '');
 
@@ -250,6 +270,14 @@ class Bs extends Component
             // 'livewire' is keyed slightly different
             if ($key === 'livewire' && $val === true) {
                 $key = 'wire:model';
+                $val = $this->dotName;
+            }
+            elseif ($key === 'wireLazy' && $val === true) {
+                $key = 'wire:model.lazy';
+                $val = $this->dotName;
+            }
+            elseif ($key === 'wireDefer' && $val === true) {
+                $key = 'wire:model.defer';
                 $val = $this->dotName;
             }
 
@@ -484,12 +512,24 @@ class Bs extends Component
     {
         $this->options['wire:model'] = Arr::get($this->options, 'livewire', str_replace('.', '_', $this->dotName));
 
+        $this->options['wire:model.lazy'] = Arr::get($this->options, 'wireLazy', str_replace('.', '_', $this->dotName));
+
+        $this->options['wire:model.defer'] = Arr::get($this->options, 'wireDefer', str_replace('.', '_', $this->dotName));
+
         // backwards compat
         if ($this->options['wire:model'] === true) {
             $this->options['wire:model'] = str_replace('.', '_', $this->dotName);
         }
+        elseif ($this->options['wire:model.lazy'] === true) {
+            $this->options['wire:model.lazy'] = str_replace('.', '_', $this->dotName);
+        }
+        elseif ($this->options['wire:model.defer'] === true) {
+            $this->options['wire:model.defer'] = str_replace('.', '_', $this->dotName);
+        }
 
         unset($this->options['livewire']);
+        unset($this->options['wire-lazy']);
+        unset($this->options['wire-defer']);
     }
 
     /**

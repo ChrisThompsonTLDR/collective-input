@@ -58,7 +58,7 @@ Or if you find it easier to use a large array of options, that works as well
 
 ### Shorthand Options
 
-A few options can be passed as a value to make setting them easier.  These include: `required`, `livewire`, `checked`
+A few options can be passed as a value to make setting them easier.  These include: `required`, `livewire`, `checked`, `wireLazy`, `wireDefer`
 
 The following generate the same DOM:
 ```
