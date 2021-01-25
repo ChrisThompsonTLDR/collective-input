@@ -518,9 +518,13 @@ class Bs extends Component
     {
         $this->options['wire:model'] = Arr::get($this->options, 'livewire', str_replace('.', '_', $this->dotName));
 
-        $this->options['wire:model.lazy'] = Arr::get($this->options, 'wireLazy', str_replace('.', '_', $this->dotName));
+        if (empty($this->options['wire:model.lazy'])) {
+            $this->options['wire:model.lazy'] = Arr::get($this->options, 'wireLazy');
+        }
 
-        $this->options['wire:model.defer'] = Arr::get($this->options, 'wireDefer', str_replace('.', '_', $this->dotName));
+        if (empty($this->options['wire:model.defer'])) {
+            $this->options['wire:model.defer'] = Arr::get($this->options, 'wireDefer');
+        }
 
         // backwards compat
         if ($this->options['wire:model'] === true) {
