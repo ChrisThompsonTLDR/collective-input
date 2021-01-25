@@ -502,6 +502,8 @@ class Bs extends Component
 
         if ($this->options['placeholder'] === true) {
             $this->options['placeholder'] = (($this->type === 'select') ? 'Select ' : '') . $this->label;
+
+            $this->options['placeholder'] = str_replace(config('form.required.helper'), '', $this->options['placeholder']);
         }
 
         if ($this->options['dusk'] === true) {
