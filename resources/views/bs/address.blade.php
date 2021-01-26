@@ -4,7 +4,7 @@
     {{ $before }}
 
     @if($formGroup)<div {!! ((isset($groupClass)) ? 'class="' . $groupClass . '"' : '') !!}>@endif
-        @if($label)<label for="{{ $name }}">{{ $label }}</label>@endif
+        @if($label)<label for="{{ $name }}">{!! $label !!}</label>@endif
 
         @php
         $addressOptions = $options;
