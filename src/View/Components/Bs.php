@@ -518,10 +518,6 @@ class Bs extends Component
     {
         $this->options['wire:model'] = Arr::get($this->options, 'livewire', str_replace('.', '_', $this->dotName));
 
-        if (empty($this->options['wire:model.lazy'])) {
-            $this->options['wire:model.lazy'] = str_replace('.', '_', Arr::get($this->options, 'wireLazy'));
-        }
-
         // backwards compat
         if ($this->options['wire:model'] === true) {
             $this->options['wire:model'] = str_replace('.', '_', $this->dotName);
