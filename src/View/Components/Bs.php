@@ -274,11 +274,11 @@ class Bs extends Component
             }
             elseif ($key === 'wireLazy' && $val === true) {
                 $key = 'wire:model.lazy';
-                $val = $this->dotName;
+                $val = str_replace('.', '_', $this->dotName);
             }
             elseif ($key === 'wireDefer' && $val === true) {
                 $key = 'wire:model.defer';
-                $val = $this->dotName;
+                $val = str_replace('.', '_', $this->dotName);
             }
 
             if (!is_null($key) && !isset($this->options[$key])) {
@@ -519,22 +519,12 @@ class Bs extends Component
         $this->options['wire:model'] = Arr::get($this->options, 'livewire', str_replace('.', '_', $this->dotName));
 
         if (empty($this->options['wire:model.lazy'])) {
-            $this->options['wire:model.lazy'] = Arr::get($this->options, 'wireLazy');
-        }
-
-        if (empty($this->options['wire:model.defer'])) {
-            $this->options['wire:model.defer'] = Arr::get($this->options, 'wireDefer');
+            $this->options['wire:model.lazy'] = str_replace('.', '_', Arr::get($this->options, 'wireLazy'));
         }
 
         // backwards compat
         if ($this->options['wire:model'] === true) {
             $this->options['wire:model'] = str_replace('.', '_', $this->dotName);
-        }
-        elseif ($this->options['wire:model.lazy'] === true) {
-            $this->options['wire:model.lazy'] = str_replace('.', '_', $this->dotName);
-        }
-        elseif ($this->options['wire:model.defer'] === true) {
-            $this->options['wire:model.defer'] = str_replace('.', '_', $this->dotName);
         }
 
         unset($this->options['livewire']);
