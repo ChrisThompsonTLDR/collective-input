@@ -24,12 +24,6 @@
         if (isset($options['wire:model'])) {
             $address2Options['wire:model'] = 'address_2';
         }
-        elseif (isset($options['wire:model.defer'])) {
-            $address2Options['wire:model.defer'] = str_replace('_address', '_address_2', $options['wire:model.defer']);
-        }
-        elseif (isset($options['wire:model.lazy'])) {
-            $address2Options['wire:model.lazy'] = str_replace('_address', '_address_2', $options['wire:model.lazy']);
-        }
 
         $address2Name = Str::of($name)->replace('[address]', '[address_2]');
         if ($address2Name->is('address')) {
@@ -48,12 +42,6 @@
                 if (isset($options['wire:model'])) {
                     $options['wire:model'] = 'city';
                 }
-                elseif (isset($options['wire:model.defer'])) {
-                    $options['wire:model.defer'] = str_replace('_address', '_city', $options['wire:model.defer']);
-                }
-                elseif (isset($options['wire:model.lazy'])) {
-                    $options['wire:model.lazy'] = str_replace('_address', '_city', $options['wire:model.lazy']);
-                }
 
                 $cityName = Str::of($name)->replace('[address]', '[city]');
                 if ($cityName->is('address')) {
@@ -71,12 +59,6 @@
             @php
                 if (isset($options['wire:model'])) {
                     $options['wire:model'] = 'state';
-                }
-                elseif (isset($options['wire:model.defer'])) {
-                    $options['wire:model.defer'] = str_replace('_city', '_state', $options['wire:model.defer']);
-                }
-                elseif (isset($options['wire:model.lazy'])) {
-                    $options['wire:model.lazy'] = str_replace('_city', '_state', $options['wire:model.lazy']);
                 }
 
                 $stateName = Str::of($name)->replace('[address]', '[state]');
@@ -98,12 +80,6 @@
             @php
                 if (isset($options['wire:model'])) {
                     $options['wire:model'] = 'zip';
-                }
-                elseif (isset($options['wire:model.defer'])) {
-                    $options['wire:model.defer'] = str_replace('_state', '_zip', $options['wire:model.defer']);
-                }
-                elseif (isset($options['wire:model.lazy'])) {
-                    $options['wire:model.lazy'] = str_replace('_state', '_zip', $options['wire:model.lazy']);
                 }
 
                 $zipName = Str::of($name)->replace('[address]', '[zip]');
