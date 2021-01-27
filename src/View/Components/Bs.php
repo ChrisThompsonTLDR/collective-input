@@ -523,9 +523,19 @@ class Bs extends Component
             $this->options['wire:model'] = str_replace('.', '_', $this->dotName);
         }
 
+        if ($defer = Arr::get($this->options, 'wireDefer')) {
+            $this->options['wire:model.defer'] = $defer;
+        }
+
+        if ($lazy = Arr::get($this->options, 'wireLazy')) {
+            $this->options['wire:model.lazy'] = $lazy;
+        }
+
         unset($this->options['livewire']);
         unset($this->options['wire-lazy']);
         unset($this->options['wire-defer']);
+        unset($this->options['wireLazy']);
+        unset($this->options['wireDefer']);
     }
 
     /**
