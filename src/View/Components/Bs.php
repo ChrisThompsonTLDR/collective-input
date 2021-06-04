@@ -280,6 +280,9 @@ class Bs extends Component
                 $key = 'wire:model.defer';
                 $val = str_replace('.', '_', $this->dotName);
             }
+            elseif ($key === 'formGroup' && $val === false) {
+                $this->formGroup = false;
+            }
 
             if (!is_null($key) && !isset($this->options[$key])) {
                 $this->options[$key] = $val;
