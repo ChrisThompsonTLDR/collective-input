@@ -508,6 +508,9 @@ class Bs extends Component
 
             $this->options['placeholder'] = str_replace(config('form.required.helper'), '', $this->options['placeholder']);
         }
+        elseif ($this->options['placeholder'] === false) {
+            unset($this->options['placeholder']);
+        }
 
         if ($this->options['dusk'] === true) {
             $this->options['dusk'] = $this->options['id'] . '-' . $this->type;
