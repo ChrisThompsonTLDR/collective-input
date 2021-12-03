@@ -274,11 +274,11 @@ class Bs extends Component
             }
             elseif ($key === 'wireLazy' && $val === true) {
                 $key = 'wire:model.lazy';
-                $val = $this->dotName;
+                $val = str_replace('.', '_', $this->dotName);
             }
             elseif ($key === 'wireDefer' && $val === true) {
                 $key = 'wire:model.defer';
-                $val = $this->dotName;
+                $val = str_replace('.', '_', $this->dotName);
             }
             elseif ($key === 'formGroup' && $val === false) {
                 $this->formGroup = false;
@@ -522,7 +522,7 @@ class Bs extends Component
      */
     private function livewireModel()
     {
-        $this->options['wire:model'] = Arr::get($this->options, 'livewire', $this->dotName);
+        $this->options['wire:model'] = Arr::get($this->options, 'livewire', str_replace('.', '_', $this->dotName));
 
         // backwards compat
         if ($this->options['wire:model'] === true) {
