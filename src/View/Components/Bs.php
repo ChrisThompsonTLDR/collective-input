@@ -223,7 +223,8 @@ class Bs extends Component
      * @return void
      */
     public function __construct(
-        $name, $type = null,
+        $name,
+        $type = null,
         $options = [],
         $value = null,
         $required = null,
@@ -493,12 +494,13 @@ class Bs extends Component
     {
         foreach (['required', 'checked', 'selected', 'placeholder', 'dusk', 'livewire'] as $key) {
             // check if 'required' is a value, convert it to a key => true
-            if (in_array($key, $this->options, true) && is_numeric($key)) {
-                $this->options[$key] = true;
-
+            if (in_array($key, $this->options, true)) {
                 // remove the value as it is now a key
                 if (($int = array_search($key, $this->options, true)) !== false) {
-                    unset($this->options[$int]);
+                    if (is_numeric($int)) {
+                        $this->options[$key] = true;
+                        unset($this->options[$int]);
+                    }
                 }
             }
         }
