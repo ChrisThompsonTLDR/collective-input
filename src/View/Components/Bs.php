@@ -266,6 +266,18 @@ class Bs extends Component
         $this->options = $options;
         $this->dotName = (string) Str::of($this->name)->replace(['[', ']'], ['.', '']);
 
+        if ($groupClass) {
+            $this->groupClasses[] = $groupClass;
+
+            $groupClass = null;
+        }
+
+        if ($labelClass) {
+            $this->labelClasses[] = $labelClass;
+
+            $labelClass = null;
+        }
+
         // overload options
         foreach (Arr::except(get_defined_vars(), ['name', 'type', 'options']) as $key => $val) {
             // 'livewire' is keyed slightly different
