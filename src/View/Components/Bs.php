@@ -282,7 +282,7 @@ class Bs extends Component
         if ($inputClass) {
             $this->inputClasses[] = $inputClass;
 
-            $labelClass = null;
+            $inputClass = null;
         }
 
         // overload options
