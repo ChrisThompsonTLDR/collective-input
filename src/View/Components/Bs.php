@@ -236,6 +236,7 @@ class Bs extends Component
         $formGroup = null,
         $groupClass = null,
         $labelClass = null,
+        $inputClass = null,
         $dusk = null,
         $helper = null,
         $livewire = null,
@@ -274,6 +275,12 @@ class Bs extends Component
 
         if ($labelClass) {
             $this->labelClasses[] = $labelClass;
+
+            $labelClass = null;
+        }
+
+        if ($inputClass) {
+            $this->inputClasses[] = $inputClass;
 
             $labelClass = null;
         }
