@@ -236,7 +236,6 @@ class Bs extends Component
         $formGroup = null,
         $groupClass = null,
         $labelClass = null,
-        $inputClass = null,
         $dusk = null,
         $helper = null,
         $livewire = null,
@@ -244,7 +243,8 @@ class Bs extends Component
         $wireDefer = null,
         $id = null,
         $disabled = null,
-        $readonly = null
+        $readonly = null,
+        $autofocus = null
     ) {
         // convert from dot syntax to HTML syntax
         $name = str_replace('.', '[', $name) . ((Str::of($name)->contains('.')) ? ']' : '');
@@ -266,24 +266,6 @@ class Bs extends Component
         $this->type    = $type;
         $this->options = $options;
         $this->dotName = (string) Str::of($this->name)->replace(['[', ']'], ['.', '']);
-
-        if ($groupClass) {
-            $this->groupClasses[] = $groupClass;
-
-            $groupClass = null;
-        }
-
-        if ($labelClass) {
-            $this->labelClasses[] = $labelClass;
-
-            $labelClass = null;
-        }
-
-        if ($inputClass) {
-            $this->inputClasses[] = $inputClass;
-
-            $inputClass = null;
-        }
 
         // overload options
         foreach (Arr::except(get_defined_vars(), ['name', 'type', 'options']) as $key => $val) {
@@ -511,7 +493,7 @@ class Bs extends Component
      */
     private function booleans()
     {
-        foreach (['required', 'checked', 'selected', 'placeholder', 'dusk', 'livewire'] as $key) {
+        foreach (['required', 'checked', 'selected', 'placeholder', 'dusk', 'livewire', 'autofocus'] as $key) {
             // check if 'required' is a value, convert it to a key => true
             if (in_array($key, $this->options, true)) {
                 // remove the value as it is now a key
