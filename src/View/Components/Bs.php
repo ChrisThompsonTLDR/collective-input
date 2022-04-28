@@ -466,6 +466,9 @@ class Bs extends Component
                 $this->groupClasses[] = config('form.required.class');
             }
         }
+        elseif (!empty($this->groupClass)) {
+            $this->groupClasses[] = $this->groupClass;
+        }
 
         if ($this->type === 'file') {
             $this->groupClasses[] = 'custom-file';
