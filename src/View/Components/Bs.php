@@ -457,8 +457,10 @@ class Bs extends Component
             $this->groupClass .= ' form-check';
         }
 
-        if (!empty($this->groupClass)) {
-            $this->groupClasses[] = $this->groupClass;
+        if (!empty($this->options['groupClass'])) {
+            $this->groupClasses[] = $this->options['groupClass'];
+
+            unset($this->options['groupClass']);
 
             if (Arr::get($this->options, 'required')) {
                 $this->groupClasses[] = config('form.required.class');
