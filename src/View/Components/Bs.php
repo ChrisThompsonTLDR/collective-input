@@ -403,6 +403,9 @@ class Bs extends Component
                 case 'hidden':
                     $this->inputClass = '';
                     break;
+                case 'select':
+                    $this->inputClass = 'form-select';
+                    break;
             }
         }
 
