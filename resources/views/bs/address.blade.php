@@ -62,7 +62,7 @@
             @endphp
 
             @if($formGroup)<div {!! ((isset($groupClass)) ? 'class="' . $groupClass . '"' : '') !!}>@endif
-                @if ($label)<label for="{{ $options['id'] . '_' . 'city' }}">City</label>@endif
+                @if ($label)<label for="{{ $options['id'] . '_' . 'city' }}">City{!! ((isset($options['required']) && $options['required']) ? config('form.required.helper') : '') !!}</label>@endif
                 {{ Form::text($cityName, optional($value)->city, array_merge($options, ['id' => $options['id'] . '_' . 'city'])) }}
                 @include('form::bs.errors', ['errorName' => $cityName])
             @if($formGroup)</div>@endif
@@ -85,7 +85,7 @@
                 }
             @endphp
             @if($formGroup)<div {!! ((isset($groupClass)) ? 'class="' . $groupClass . '"' : '')  !!}>@endif
-                @if ($label)<label for="{{ $options['id'] . '_' . 'state' }}">State</label>@endif
+                @if ($label)<label for="{{ $options['id'] . '_' . 'state' }}">State{!! ((isset($options['required']) && $options['required']) ? config('form.required.helper') : '') !!}</label>@endif
                 @if ($states)
                 {{ Form::select($stateName, $states, optional($value)->state, array_merge($options, ['placeholder' => '', 'id' => $options['id'] . '_' . 'state'])) }}
                 @else
@@ -112,7 +112,7 @@
                 }
             @endphp
             @if($formGroup)<div {!! ((isset($groupClass)) ? 'class="' . $groupClass . '"' : '') !!}>@endif
-                @if ($label !== false)<label for="{{ $options['id'] . '_' . 'zip' }}">Zip</label>@endif
+                @if ($label !== false)<label for="{{ $options['id'] . '_' . 'zip' }}">Zip{!! ((isset($options['required']) && $options['required']) ? config('form.required.helper') : '') !!}</label>@endif
                 {{ Form::text($zipName, optional($value)->zip, array_merge($options, ['id' => $options['id'] . '_' . 'zip'])) }}
                 @include('form::bs.errors', ['errorName' => $zipName])
             @if($formGroup)</div>@endif
