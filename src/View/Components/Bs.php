@@ -656,7 +656,10 @@ class Bs extends Component
         foreach (['label', 'jquery', 'helper', 'states', 'selectOptions', 'livewire', 'options', 'checked', 'after'] as $val) {
             // is array value
             if (($key = array_search($val, $this->options, true)) !== false) {
-                unset($this->options[$key]);
+                // Don't unset IDs
+                if ($key !== 'id') {
+                    unset($this->options[$key]);
+                }
             }
 
             // is array key
